@@ -6,7 +6,7 @@ include_once 'UserQueries.php';
 $userQueries = UserQueries::getUserQueries();
 ?>
 <div id="container">
-<div id="results">
+<div id="results" class="queryResults">
 <?php 
 foreach ($userQueries as $array) {
 	echo "<span class='tagResult'>";
