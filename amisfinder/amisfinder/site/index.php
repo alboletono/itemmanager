@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="assets/jquery-ui.css">
     <script src="assets/jquery-1.9.1.js"></script>
 	<script src="assets/jquery-ui-1.9.1.js"></script>
-	<script src="assets/jquery-ui-core.js"></script>
-	<script src="assets/jquery-ui-widget.js"></script>
 	
 	<script>
 		function onSearchClick() {
