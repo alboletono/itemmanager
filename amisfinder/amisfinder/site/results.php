@@ -5,6 +5,11 @@
 	include_once 'Fetcher.php';
 	include_once 'UserQueries.php';
 
+	
+	function usort_strcmp($elt1, $elt2) {
+		strcmp($elt1->title, $elt2->title);
+	}
+	
 	$fetcher = new Fetcher();
 	$expression = "site:http://copainsdavant.linternaute.com/p/ intitle:%s";
 	$results1 = $fetcher->fetch(sprintf($expression, $_POST['request'], $_POST['request']));
@@ -16,7 +21,10 @@
 	$results3 = $fetcher->fetch(sprintf($expression, $_POST['request'], $_POST['request']));
 
 	$results = array_merge($results1, $results2, $results3);
-	array_rand($results);
+	usort($results, "usort_strcmp");
+	
+	//die ("résultats : " . count($results));
+	
 	
 	echo "<h2><span class='logo1'>".count($results)." résultats pour </span><span class='logo2'>".$_POST['request']."</span></h2>";
 ?>
@@ -24,6 +32,7 @@
 	<div id="results">
 <?php 
 	$i = 0;
+
 	foreach ($results as $result) {
 		$resultTitle = sprintf("<a href='open.php?query=%s&site=http://%s' target='_new'>%s</a><br>", $_POST['request'], $result->url, $result->title); 
 		echo "<div class='resultTitle'>$resultTitle</div>";

@@ -3,23 +3,25 @@
 class Logger{
 	
 
-	static $debugEnabled = true;
-	static $ifStdoutEnabled = false;
+	var $debugEnabled = true;
+	var $ifStdoutEnabled = false;
 	
 	
-	static $instance = null;
+	//var $instance = null;
 	
-	protected $clazz;
+	var $clazz;
 	
-	protected function __construct($clazz) {
+	function __construct($clazz) {
 		$this->clazz = $clazz;
 	}
 	
-	static function getInstance($clazz) {
-		if (Logger::$instance == null)
-			Logger::$instance = new Logger($clazz);
-		return Logger::$instance;
+	/*
+	function getInstance($clazz) {
+		if ($instance == null)
+			$instance = new Logger($clazz);
+		return $instance;
 	}
+	*/
 	
 	function debug($message) {
 		if ($this->isDebugEnabled())
@@ -34,16 +36,16 @@ class Logger{
 		$this->log("ERROR", $message);
 	}
 	
-	private function log($level, $message) {
+	function log($level, $message) {
 		$this->printMessage($this->clazz . "\t" . $level . "\t" . $message . "\n");
 	}
 	
 	function isDebugEnabled() {
-		return Logger::$debugEnabled;
+		return $this->debugEnabled;
 	}
 	
 	function printMessage($message) {
-		if ($ifStdoutEnabled) {
+		if ($this->ifStdoutEnabled) {
 			print $message;
 		}
 	}

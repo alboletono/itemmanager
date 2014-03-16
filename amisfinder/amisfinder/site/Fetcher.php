@@ -7,12 +7,13 @@ require_once 'Logger.php';
  * @author albo
  *
  */
+
+define(FETCHER_URL_PATTERN, "http://fr.search.yahoo.com/search?p=%s");
+
 class Fetcher {
 	
-	static $logger; 
+	var $logger; 
 	
-	static $URL_PATTERN = "http://fr.search.yahoo.com/search?p=%s";
-
 	var $useProxy = false;
 	var $proxyUrl;
 	var $proxyPort;
@@ -22,13 +23,12 @@ class Fetcher {
 	
 	
 	function __construct() {
-		self::$logger = Logger::getInstance("Fetcher");
+		$this->logger = new Logger("Fetcher");
 	}
 	
 	function fetch($request) {
-		
-		self::$logger->info("Begin of fetch.");
-		
+		//$this->logger->info("Begin of fetch.");
+
 		// create a new cURL resource
 		$ch = curl_init();
 		
@@ -43,8 +43,8 @@ class Fetcher {
 			curl_setopt($ch, CURLOPT_PROXYAUTH, $this->ProxyAuth);
 		}
 		
-		$url = sprintf(self::$URL_PATTERN, urlencode($request));
-		self::$logger->debug("Url is $url");
+		$url = sprintf(FETCHER_URL_PATTERN, urlencode($request));
+		//$this->logger->debug("Url is $url");
 		
 		// set URL and other appropriate options
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -53,19 +53,20 @@ class Fetcher {
 		
 		// grab URL and pass it to the browser
 		$output = curl_exec($ch);
-	    self::$logger->debug("Curl output is $output");
 		
-	    
-	    $result = $this->extractSearchResults($output);
+		
+	    //$this->logger->debug("Curl output is $output");
+		
+		$result = $this->extractSearchResults($output);
 	    
 		// close cURL resource, and free up system resources
 		curl_close($ch);
 		
-		self::$logger->info("End of fetch.");
+		//$this->logger->info("End of fetch.");
 		return $result;
 	}
 	
-	protected function extractSearchResults($output) {
+	function extractSearchResults($output) {
 		
 		
 		preg_match_all("/<li><div class=\"res\">.*?<\/div><\/li>/", $output, $matches, PREG_PATTERN_ORDER);
@@ -73,11 +74,10 @@ class Fetcher {
 		$searchResults = array();
 		
 		foreach ($matches[0] as $match) {
-			self::$logger->debug("group found is: $match");
+			//$this->logger->debug("group found is: $match");
 
 			// Adding new void search result
 			$searchResult = new SearchResult();
-			array_push($searchResults, $searchResult);
 			
 			// Extracting url
 			$searchResult->url = $this->extractMetadata($match, "/<span class=url>(.*?)<\/span>/");
@@ -88,8 +88,9 @@ class Fetcher {
 			// Extracting snippet
 			$searchResult->snippet = $this->extractMetadata($match, "/<div class=\"abstr\">(.*?)<\/div>/");
 				
-			
-			self::$logger->debug("search result is:\n" . $searchResult->toString());
+			array_push($searchResults, $searchResult);
+				
+			//$this->logger->debug("search result is:\n" . $searchResult->toString());
 			
 		}
 		
@@ -97,13 +98,13 @@ class Fetcher {
 		return $searchResults;
 	}
 	
-	private function extractMetadata($string, $pattern) {
+	function extractMetadata($string, $pattern) {
 		$result = null;
 		preg_match($pattern, $string, $urlArray);
 		if (count($urlArray) > 1) {
 			$result = strip_tags($urlArray[1]);
 		} else {
-			self::$logger->error("no match found for $pattern");
+			//$this->logger->error("no match found for $pattern");
 		}
 		return $result;
 	} 
@@ -119,17 +120,17 @@ class Fetcher {
  */
 class SearchResult {
 
-	public $url;
+	var $url;
 
-	public $title;
+	var $title;
 
-	public $snippet;
+	var $snippet;
 	
 	function __construct() {
 		
 	}
 	
-	public function toString() {
+	function toString() {
 		return sprintf("url: %s\n title: %s\n snippet: %s", 
 				$this->url, $this->title, $this->snippet);
 	}

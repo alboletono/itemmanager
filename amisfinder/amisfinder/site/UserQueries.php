@@ -1,21 +1,23 @@
 <?php
 
+define(QUERIES_FILE_NAME, "userqueries.txt");
+
+define(MAX_QUERIES, 100);
+
+
 class UserQueries {
 
-	static $filename = "userqueries.txt";
-	
-	const MAX_QUERIES = 100;
 	
 	/**
 	 * @return an array containing the query and the associated site url.
 	 */
-	static function getUserQueries() {
+	function getUserQueries() {
 		$result = array();
 		
-		$fp = fopen(UserQueries::$filename, "r");
+		$fp = fopen(QUERIES_FILE_NAME, "r");
 		$contents = '';
 		if (flock($fp, LOCK_EX)) {  // acquire an exclusive lock
-			$contents = fread($fp, filesize(UserQueries::$filename));
+			$contents = fread($fp, filesize(QUERIES_FILE_NAME));
 			flock($fp, LOCK_UN);    // release the lock
 		} else {
 			die ("Couldn't get the lock!");
@@ -26,17 +28,17 @@ class UserQueries {
 			
 			$lines = explode("\n", $contents);
 			// Shrinking last queries to the last 10 queries
-			if (count($lines) > self::MAX_QUERIES) {
+			if (count($lines) > MAX_QUERIES) {
 				die("prout");
 				$contentsNew = '';
-				for ($i = count($lines) - self::MAX_QUERIES ;  $i < count($lines) -1; $i++ ) {
+				for ($i = count($lines) - MAX_QUERIES ;  $i < count($lines) -1; $i++ ) {
 					if ($lines[$i] != '\n') {
 						$contentsNew .= $lines[$i] . "\n";
 					}
 				}
 				
 				if ($contentsNew != '') {
-					$fp = fopen(UserQueries::$filename, "w");
+					$fp = fopen(QUERIES_FILE_NAME, "w");
 					if (flock($fp, LOCK_EX)) {  // acquire an exclusive lock
 						fwrite($fp, $contentsNew);
 						fflush($fp);            // flush output before releasing the lock
@@ -51,7 +53,10 @@ class UserQueries {
 			foreach($lines as $line) {
 				$column = explode("\t", $line);
 				if (count($column) == 2) {
-					array_push($result, [$column[0], $column[1]]);
+					$couple = array();
+					array_push($couple, $column[0]);
+					array_push($couple, $column[1]);
+					array_push($result, $couple);
 				}
 			}
 				
@@ -66,9 +71,9 @@ class UserQueries {
 	 * @param string $query the user query to save in file
 	 * @param string $site the site found to save in file
 	 */
-	static function saveUserQuery( $query,  $site) {
+	function saveUserQuery( $query,  $site) {
 	
-		$fp = fopen(UserQueries::$filename, "a+");
+		$fp = fopen(QUERIES_FILE_NAME, "a+");
 	
 		if (flock($fp, LOCK_EX)) {  // acquire an exclusive lock
 			$line = sprintf("%s\t%s\n", $query, $site);
