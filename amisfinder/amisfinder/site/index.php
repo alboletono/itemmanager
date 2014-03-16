@@ -66,14 +66,15 @@ if ($_POST['request'] == "") include_once 'lastresults.php';
 <script type="text/javascript">
 	var defaultQuery = "Entrez le nom de la personne recherchée";
 	var inputRequest = $("#request");
-	if (inputRequest.value == "") {
-		
-		inputRequest.value = defaultQuery;
+	if (inputRequest.val() == "") {
+		inputRequest.val(defaultQuery);
 	}
-
+	
+		
 	function inputRequestClick() {
-		if (inputRequest.value == defaultQuery) 
-			inputRequest.value = "";
+		
+		if (inputRequest.val() == defaultQuery) 
+			inputRequest.val("");
 	}
 </script>
 
