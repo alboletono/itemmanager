@@ -42,6 +42,7 @@
 		// Inserting google ad
 		if ($i%5 == 0 && $i!=0) {
 ?>
+			<br>
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- AF_Results -->
 			<ins class="adsbygoogle"
@@ -51,7 +52,8 @@
 			<script>
 			(adsbygoogle = window.adsbygoogle || []).push({});
 			</script>
-
+			<br>
+			<br>
 <?php 
 		}
 		

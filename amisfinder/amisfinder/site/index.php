@@ -27,22 +27,25 @@
 
 <h1><a href="index.php"><span class="logo1">Amis</span><span class="logo2">finder</span></a></h1>
 <!-- Google ad -->
+<div style="margin-left:auto;margin-right:auto;text-align:center;">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- AF_Banner -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:468px;height:15px"
+     style="width:468px;height:15px;"
      data-ad-client="ca-pub-9211879234049376"
      data-ad-slot="9127294801"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
+<br>
 <!-- End of google ad -->
 
 <div id="searchForm" >
 <form method="post" action="index.php">
 	<table>
 		<tr><td>
-			<input id="request" name="request" type="text" size="30" value="<?php echo $_POST['request']; ?>" onclick="inputRequestClick()"></input>
+			<input id="request" name="request" type="text" size="40" value="<?php echo $_POST['request']; ?>" onclick="inputRequestClick()"></input>
 		</td></tr>
 		<tr><td>
 			<input name="submit" type="submit" value="rechercher" onclick="onSearchClick()"></input>
