@@ -27,7 +27,7 @@
   </info>
 
   <configurations>
-    <include file="../../..//ivy/ivy-configurations.xml"/>
+    <include file="../../../ivy/ivy-configurations.xml"/>
   </configurations>
 
   <publications>
@@ -36,6 +36,10 @@
   </publications>
 
   <dependencies>
+  <!-- 
+          <dependency org="org.apache.nutch" name="nutch" rev="1.8"
+                    conf="*->default"/>
+                     -->
   </dependencies>
   
 </ivy-module>
