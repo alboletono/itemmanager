@@ -45,6 +45,7 @@ public class TestMarmitonParseFilter extends TestCase {
 	public void testMarmiton1() throws Exception {
 		MarmitonParseFilter filter = new MarmitonParseFilter();
 
+		System.out.println("coucouc");
 		// Opening test file
 		File file = new File(
 				"src/plugin/parse-filter-marmiton/src/tests/files/marm1.html");

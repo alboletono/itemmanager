@@ -21,6 +21,35 @@
 	<setproxy proxyhost="ptx.proxy.corp.sopra" proxyport="8080" proxyuser="avigier" proxypassword="SAbine2013" />
 	-->
 	<import file="../../../src/plugin/build-plugin.xml"/>
+	
+	<property name="src.test.plugin" location="${root}/src/plugin"/>
+	
+	<!-- ================================================================== -->
+	  <!-- Run unit tests                                                     --> 
+	  <!-- ================================================================== -->
+	  <target name="testMarmiton" depends="compile-test, deploy" if="test.available">
+	    <echo message="Testing plugin: ${name}"/>
+
+	    <junit printsummary="yes" haltonfailure="no" fork="yes"
+	      errorProperty="tests.failed" failureProperty="tests.failed">
+	      <sysproperty key="test.data" value="${build.test}/data"/>
+	      <sysproperty key="test.input" value="${root}/data"/>
+	      <sysproperty key="javax.xml.parsers.DocumentBuilderFactory" value="com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"/> 
+	      <classpath refid="test.classpath"/>
+	      <formatter type="plain" />
+	      <batchtest todir="${build.test}" unless="testcase">
+	        <fileset dir="${src.test.plugin}"
+	                 includes="**/TestMarmiton*.java" excludes="**/${test.exclude}.java" />
+	      </batchtest>
+	      <batchtest todir="${build.test}" if="testcase">
+	        <fileset dir="${src.test}" includes="**/${testcase}.java"/>
+	      </batchtest>
+	    </junit>
+
+	    <fail if="tests.failed">Tests failed!</fail>
+
+	  </target>   
+
 
   
 	

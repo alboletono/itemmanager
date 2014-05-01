@@ -25,6 +25,7 @@
       <library name="parse-filter-marmiton.jar">
          <export name="*"/>
       </library>
+      <library name="tagsoup-1.2.1.jar"/>
    </runtime>
 
    <requires>
