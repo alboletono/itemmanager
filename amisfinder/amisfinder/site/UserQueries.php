@@ -29,7 +29,6 @@ class UserQueries {
 			$lines = explode("\n", $contents);
 			// Shrinking last queries to the last 10 queries
 			if (count($lines) > MAX_QUERIES) {
-				die("prout");
 				$contentsNew = '';
 				for ($i = count($lines) - MAX_QUERIES ;  $i < count($lines) -1; $i++ ) {
 					if ($lines[$i] != '\n') {
