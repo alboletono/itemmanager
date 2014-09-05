@@ -25,6 +25,8 @@ public class CopainsdavantParser extends AbstractAmisfinderParser {
 	 */
 	public CopainsdavantParser() {
 		// initialization of the blacklisted urls
+		// TODO Find a better way, perhaps a whitelist applied before the parsing
+		// @see RegexRule
 		this.blacklistedUrls
 				.add("http://copainsdavant\\.linternaute\\.com/glossary/users.*");
 		this.blacklistedUrls

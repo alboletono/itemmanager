@@ -51,7 +51,7 @@ public class AmisfinderParserFactory {
 	 */
 	private static IAmisfinderParser getTrombiParser(String url) {
 		if (trombiParser == null) {
-			trombiParser = new TrombiParser();
+			trombiParser = new JeTeRechercheParser();
 		}
 		return trombiParser;
 	}

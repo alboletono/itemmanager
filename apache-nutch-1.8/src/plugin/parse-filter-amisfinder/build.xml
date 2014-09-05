@@ -19,7 +19,15 @@
 
 	<setproxy proxyhost="ptx.proxy.corp.sopra" proxyport="8080" proxyuser="avigier" proxypassword="SAbine2014" />
 	<import file="../build-plugin.xml"/>
+	
+	
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+	  <classpath>
+	    <fileset dir="jaxb" includes="*.jar" />
+	  </classpath>
+	</taskdef>
 
-  
+	<xjc schema="documents.xsd" destdir="src/java" package="org.apache.nutch.parse.amisfinder.xml"/>
+	
 	
 </project>
