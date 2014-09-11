@@ -1,0 +1,3 @@
+1. Is it possible to get jaxb libraries directly into apache maven repository ? Or add it directly in the plugin?
+2. Add XSLT 2.0 capability (saxon?) 
+3. How to manage JUnit 4 dependencies?
