@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2014.09.12 à 04:05:46 PM CEST 
+// Généré le : 2014.09.12 à 10:15:10 PM CEST 
 //
 
 
@@ -27,7 +27,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="transformer" type="{http://www.example.org/rules/}TTransformer"/>
  *       &lt;/sequence>
- *       &lt;attribute name="url" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="matches" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,8 +43,6 @@ public class TRule {
 
     @XmlElement(required = true)
     protected TTransformer transformer;
-    @XmlAttribute(name = "url", required = true)
-    protected String url;
     @XmlAttribute(name = "matches", required = true)
     protected String matches;
 
@@ -71,30 +68,6 @@ public class TRule {
      */
     public void setTransformer(TTransformer value) {
         this.transformer = value;
-    }
-
-    /**
-     * Obtient la valeur de la propriété url.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Définit la valeur de la propriété url.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUrl(String value) {
-        this.url = value;
     }
 
     /**

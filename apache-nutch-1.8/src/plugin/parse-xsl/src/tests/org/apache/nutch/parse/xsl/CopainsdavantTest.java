@@ -8,7 +8,7 @@ import java.util.Date;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.metadata.Metadata;
 import org.apache.nutch.parse.ParseResult;
-import org.apache.nutch.parse.amisfinder.AmisfinderParseFilterXsl.PARSER;
+import org.apache.nutch.parse.xsl.XslParseFilter.PARSER;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -159,7 +159,7 @@ public class CopainsdavantTest extends AbstractCrawlTest {
 				parsedMetadata,
 				"Danielle Uchi",
 				"Jean Michel LE CLERC",
-				"Jean Michel LE CLERC Pendant les cours, je dessinai un personnage un peu bizarre sur des petits bouts de papier, notre domaine, à la sortie de l'ESD, était Capoulade, le boul. St-Michel... il y a 2 jours");
+				"Jean Michel LE CLERC Pendant les cours, je dessinai un personnage un peu bizarre sur des petits bouts de papier, notre domaine, ï¿½ la sortie de l'ESD, ï¿½tait Capoulade, le boul. St-Michel... il y a 2 jours");
 
 	}
 	

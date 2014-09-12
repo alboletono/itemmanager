@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/plugin/parse-xsl/src/java"/>
+	<classpathentry kind="src" path="src/plugin/parse-xsl/src/tests"/>
 	<classpathentry kind="src" path="src/plugin/nutch-marmiton/src/tests"/>
 	<classpathentry kind="src" path="src/plugin/nutch-marmiton/src/java"/>
 	<classpathentry kind="src" path="src/plugin/creativecommons/src/java"/>
@@ -151,5 +153,8 @@
 	<classpathentry kind="lib" path="/home/albo/git/itemmanager/apache-nutch-1.8/build/lib/xmlenc-0.52.jar"/>
 	<classpathentry kind="lib" path="/home/albo/git/itemmanager/apache-nutch-1.8/build/lib/xmlParserAPIs-2.6.2.jar"/>
 	<classpathentry kind="lib" path="build/plugins/parse-html/tagsoup-1.2.1.jar"/>
+	<classpathentry kind="lib" path="src/plugin/parse-xsl/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="src/plugin/parse-xsl/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="build/plugins/lib-nekohtml/nekohtml-1.9.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
