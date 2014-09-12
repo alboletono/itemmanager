@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.metadata.Metadata;
 import org.apache.nutch.parse.ParseResult;
 import org.apache.nutch.parse.amisfinder.AmisfinderParseFilterXsl.PARSER;
@@ -32,6 +33,10 @@ public class CopainsdavantTest extends AbstractCrawlTest {
 
 	/** The current parser to use */
 	protected PARSER parser = null;
+	
+	static {
+		PropertyConfigurator.configure("conf/log4j.properties");
+	}
 
 	/**
 	 * 
@@ -45,19 +50,18 @@ public class CopainsdavantTest extends AbstractCrawlTest {
 		// differently */
 		if (parser == PARSER.NEKO) {
 			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER, PARSER.NEKO.toString());
-			this.getConfiguration().set(XslParseFilter.CONF_XSLT_FILE, "src/plugin/parse-xsl/src/tests/files/copainsdavant/transformer_neko.xsl");
-
 		} else {
 			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER, PARSER.TAGSOUP.toString());
-			this.getConfiguration().set(XslParseFilter.CONF_XSLT_FILE, "src/plugin/parse-xsl/src/tests/files/copainsdavant/transformer_tagsoup.xsl");
 		}
+		this.getConfiguration().set(XslParseFilterManager.CONF_XSLT_FILE, "src/plugin/parse-xsl/src/tests/files/copainsdavant/rules.xml");
+
 		
 	}
 
 	
 	@Parameters(name="{index}: parser {0}, extractor {1}")
 	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][] { { PARSER.TAGSOUP},  { PARSER.NEKO } });
+		return Arrays.asList(new Object[][] { { PARSER.NEKO } });
 	}
 	
 	/**
@@ -126,7 +130,7 @@ public class CopainsdavantTest extends AbstractCrawlTest {
 
 	/**
 	 * Wrong url shall be ignored (no data added).
-	 * 
+	 * TODO Normally done by url filtering, to be validated.
 	 * @throws Exception
 	 */
 	public void testPeople2() throws Exception {
@@ -144,6 +148,7 @@ public class CopainsdavantTest extends AbstractCrawlTest {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testWantedPeople() throws Exception {
 		String url = "http://copainsdavant.linternaute.com/recherche-amis/danielle-uchi-6460";
 		String filePath = "src/plugin/parse-xsl/src/tests/files/copainsdavant/wanted1.html";

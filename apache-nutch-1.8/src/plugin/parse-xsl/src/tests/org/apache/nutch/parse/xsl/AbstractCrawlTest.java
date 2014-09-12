@@ -42,8 +42,8 @@ public abstract class AbstractCrawlTest extends TestCase {
 
 	/**
 	 * @param parseFilter the filter to use
-	 * @param filePath
-	 * @param url
+	 * @param filePath the file to crawl
+	 * @param url the url that identifies the file to crawl (only used to set the unique key)
 	 * @return the resulting content after the crawl
 	 * @throws Exception 
 	 */
@@ -70,8 +70,11 @@ public abstract class AbstractCrawlTest extends TestCase {
 				document = parseTagSoup(new InputSource(is));
 			}
 			
+			// Creates manager to determine relevant xsl parse filter
+			XslParseFilterManager manager = new XslParseFilterManager(this.configuration);
+			
 			// Creates a parser with dedicated method 
-			HtmlParseFilter filter = new XslParseFilter();
+			HtmlParseFilter filter = manager.getParseFilter(url);
 
 			ParseData data = new ParseData();
 

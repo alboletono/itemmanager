@@ -2,30 +2,32 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2014.09.04 à 02:03:34 PM CEST 
+// Généré le : 2014.09.12 à 04:05:46 PM CEST 
 //
 
 
-package org.apache.nutch.parse.amisfinder.xml;
+package org.apache.nutch.parse.xsl.xml.rule;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour TDocument complex type.
+ * <p>Classe Java pour anonymous complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="TDocument">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *         &lt;element name="contentMeta" type="{http://www.example.org/documents/}TContentMeta"/>
+ *       &lt;sequence maxOccurs="unbounded">
+ *         &lt;element name="rule" type="{http://www.example.org/rules/}TRule"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,40 +37,42 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TDocument", propOrder = {
-    "contentMeta"
+@XmlType(name = "", propOrder = {
+    "rule"
 })
-public class TDocument {
+@XmlRootElement(name = "rules")
+public class Rules {
 
-    protected List<TContentMeta> contentMeta;
+    @XmlElement(required = true)
+    protected List<TRule> rule;
 
     /**
-     * Gets the value of the contentMeta property.
+     * Gets the value of the rule property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the contentMeta property.
+     * This is why there is not a <CODE>set</CODE> method for the rule property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getContentMeta().add(newItem);
+     *    getRule().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TContentMeta }
+     * {@link TRule }
      * 
      * 
      */
-    public List<TContentMeta> getContentMeta() {
-        if (contentMeta == null) {
-            contentMeta = new ArrayList<TContentMeta>();
+    public List<TRule> getRule() {
+        if (rule == null) {
+            rule = new ArrayList<TRule>();
         }
-        return this.contentMeta;
+        return this.rule;
     }
 
 }

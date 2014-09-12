@@ -28,13 +28,11 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.parse.HTMLMetaTags;
 import org.apache.nutch.parse.HtmlParseFilter;
 import org.apache.nutch.parse.Parse;
 import org.apache.nutch.parse.ParseResult;
 import org.apache.nutch.parse.ParseText;
-import org.apache.nutch.parse.amisfinder.AmisfinderParseFilter;
 import org.apache.nutch.parse.amisfinder.xml.Documents;
 import org.apache.nutch.parse.amisfinder.xml.TContentMeta;
 import org.apache.nutch.parse.amisfinder.xml.TDocument;
@@ -77,13 +75,10 @@ public class XslParseFilter implements HtmlParseFilter {
 	 * The output of the tranformation for debug purpose (log level "DEBUG"
 	 * shall be activated)
 	 */
-	public static final String CONF_XSLT_OUTPUT_DEBUG_FILE = "amisfinder.xslt.output.debug.file";
-
-	/** The XSLT file to use for transformation */
-	public static final String CONF_XSLT_FILE = "amisfinder.xslt.file";
+	public static final String CONF_XSLT_OUTPUT_DEBUG_FILE = "parser.xsl.output.debug.file";
 
 	/** Wether to use Saxon or Standard JVM XSLT parser */
-	public static final String CONF_XSLT_USE_SAXON = "amisfinder.xslt.useSaxon";
+	public static final String CONF_XSLT_USE_SAXON = "parser.xsl.useSaxon";
 
 	/**
 	 * Wether to use Neko or Tagsoup.
@@ -94,14 +89,35 @@ public class XslParseFilter implements HtmlParseFilter {
 	 */
 	public static final String CONF_HTML_PARSER = "parser.html.impl";
 
-	static {
-		PropertyConfigurator.configure("conf/log4j.properties");
-	}
-
-	private static final Logger LOG = LoggerFactory.getLogger(AmisfinderParseFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(XslParseFilter.class);
 
 	private Configuration conf;
+	
+	/** The transformer used to process html input. */
+	protected Transformer transformer;
 
+	/**
+	 * Default constructor forbidden.
+	 */
+	private XslParseFilter() {
+		super();
+	}
+	
+	/**
+	 * 
+	 * @param xslFilePath the file path of the xsl to load for transformer object.
+	 * @throws Exception 
+	 */
+	public XslParseFilter(String xslFilePath) throws Exception {
+		this();
+		try {
+			this.transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(xslFilePath));
+		} catch (Exception e) {
+			throw new Exception("Cannot create transformer for xsl file " + xslFilePath);
+		}
+	}
+	
+	
 	/**
 	 * @param content
 	 *            full content to parse
@@ -140,19 +156,11 @@ public class XslParseFilter implements HtmlParseFilter {
 				System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 			}
 
-			String xsltFileName = this.conf.get(CONF_XSLT_FILE);
-			if (xsltFileName == null) {
-				throw new Exception("You have to define the " + CONF_XSLT_FILE + " configuration parameter");
-			}
-
-			// Loading the XSL used for transformation
-			Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(xsltFileName));
-
 			DOMResult result = new DOMResult();
 			// At this state, thanks to the HtmlParser that is using
 			// HtmlParseFilter interface, we got
 			// a DOM object properly built (with Neko or TagSoup).
-			transformer.transform(new DOMSource(doc), result);
+			this.transformer.transform(new DOMSource(doc), result);
 
 			// Storing the xml output for debug purpose
 			if (LOG.isDebugEnabled()) {
@@ -178,15 +186,7 @@ public class XslParseFilter implements HtmlParseFilter {
 	 *            the node that is used to provide metadata information.
 	 * @param data
 	 *            the data to update This is a simple format like the following:
-	 *            {@literal 
-	 *            <documents> 
-	 *            	<document>
-	 *            		<content name="meta1">value1</content>
-	 *            		...
-	 *            		<content name="metaN">valueN</content>
-	 *            	</document>
-	 *            </documents>
-	 * 			  }
+	 *            Check the documents.xsd to figure out the structure.
 	 */
 	protected static void updateMetadata(Node node, Parse data) {
 

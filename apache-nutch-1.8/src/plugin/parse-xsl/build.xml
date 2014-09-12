@@ -27,7 +27,8 @@
 	  </classpath>
 	</taskdef>
 
-	<xjc schema="conf/documents.xsd" destdir="src/java" package="org.apache.nutch.parse.amisfinder.xml"/>
+	<xjc schema="conf/documents.xsd" destdir="src/java" package="org.apache.nutch.parse.xsl.xml.document"/>
+	<xjc  schema="conf/rules.xsd" destdir="src/java" package="org.apache.nutch.parse.xsl.xml.rule"/>
 	
 	
 </project>

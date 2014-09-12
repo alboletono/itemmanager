@@ -2,8 +2,8 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2014.09.04 à 02:03:34 PM CEST 
+// Généré le : 2014.09.12 à 04:05:46 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/documents/")
-package org.apache.nutch.parse.amisfinder.xml;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/rules/")
+package org.apache.nutch.parse.xsl.xml.rule;

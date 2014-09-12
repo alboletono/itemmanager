@@ -11,21 +11,21 @@
 	</property>
 	-->
 	<property>
-		<name>amisfinder.xslt.useSaxon</name>
+		<name>parser.xsl.useSaxon</name>
 		<value>false</value>
 		<description>Wether to use Saxon or Standard JVM XSLT parser
 		</description>
 	</property>
 	<property>
-		<name>amisfinder.xslt.file</name>
-		<value>src/plugin/parse-filter-amisfinder/src/tests/files/copainsdavant/transformer.xsl
+		<name>parser.xsl.rulesFile</name>
+		<value>src/plugin/parse-xsl/src/tests/files/copainsdavant/rules.xml
 		</value>
-		<description>The XSLT file to use for transformation
+		<description>The XML file that contains rules to use
 		</description>
 	</property>
 	<property>
-		<name>amisfinder.xslt.output.debug.file</name>
-		<value>src/plugin/parse-filter-amisfinder/src/tests/files/copainsdavant/output.xml
+		<name>parser.xsl.output.debug.file</name>
+		<value>src/plugin/parse-xsl/src/tests/files/copainsdavant/output.xml
 		</value>
 		<description>The output of the tranformation for debug purpose (log
 			level "DEBUG"

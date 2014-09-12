@@ -2,11 +2,11 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2014.09.04 à 02:03:34 PM CEST 
+// Généré le : 2014.09.12 à 04:05:46 PM CEST 
 //
 
 
-package org.apache.nutch.parse.amisfinder.xml;
+package org.apache.nutch.parse.xsl.xml.document;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the org.apache.nutch.parse.amisfinder.xml package. 
+ * generated in the org.apache.nutch.parse.xsl.xml.document package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -30,7 +30,7 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.nutch.parse.amisfinder.xml
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.nutch.parse.xsl.xml.document
      * 
      */
     public ObjectFactory() {
