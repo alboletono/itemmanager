@@ -29,5 +29,6 @@ public class CommonMetadata {
 	public static final String META_PEOPLE_LAST_NAME = "lastName";
 	/** first name metadata */
 	public static final String META_PEOPLE_FIRST_NAME = "firstName";
-	
+	/** age metadata */
+	public static final String META_PEOPLE_AGE = "age";
 }
