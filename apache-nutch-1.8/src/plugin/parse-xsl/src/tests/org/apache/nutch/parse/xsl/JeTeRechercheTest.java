@@ -59,14 +59,14 @@ public class JeTeRechercheTest extends AbstractAmisFinder {
 
 		Metadata metadata = super
 				.startTestWantedPeople(
-						"http://www.jeterecherche.com/jeterecherche_2010/avis_de_recherche/avis_de_recherche_fiche.php?q_avis=63694",
-						"src/plugin/parse-xsl/src/tests/files/jeterecheche/wanted1.html");
+						"http://www.jeterecherche.com/jeterecherche_2010/avis_de_recherche/avis_de_recherche_fiche.php?q_avis=63992",
+						"src/plugin/parse-xsl/src/tests/files/jeterecherche/wanted1.html");
 
 		this.assertMetadataWantedPeople(
 				metadata,
-				"Danielle Uchi",
-				"Jean Michel LE CLERC",
-				"Jean Michel LE CLERC Pendant les cours, je dessinai un personnage un peu bizarre sur des petits bouts de papier, notre domaine, à la sortie de l'ESD, était Capoulade, le boul. St-Michel... il y a 2 jours");
+				"Audrey Touboul",
+				"sylvie0517",
+				"Qui pourrai me donner des nouvelles d'Audrey ? Son nom de jeune fille était Touboul il y a 25 ans mais elle est peut être mariée aujourd'hui. A l'époque, elle habitait le Cannet et ses parents tenaient une boutique de vêtements à Cannes Audrey devrai avoir 50 ans et nous étions les meilleures amies du monde ! Merci à la personne qui m'aiderai à la retrouver");
 
 	}
 }

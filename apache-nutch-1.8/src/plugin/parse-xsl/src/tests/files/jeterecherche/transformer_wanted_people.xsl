@@ -8,15 +8,15 @@
 		<documents>
 			<document>
 				<contentMeta name="wantedPeople">
-					<xsl:value-of select="//H1[@class='linter_title_1']" />
+					<xsl:value-of select="normalize-space(//TABLE[@class='avis_de_recherche_fiche_membre_tableau_titre']//TR/TD/SPAN/text())" />
 				</contentMeta>
 
 				<contentMeta name="searcherPeople">
-					<xsl:value-of select="//DIV[@class='grid_left w40']/DIV[@class='grid_row']/DIV[@class='grid_last']/A" />
+					<xsl:value-of select="normalize-space(//TABLE[@class='avis_de_recherche_fiche_membre_tableau_titre']//TR[2]/TD/STRONG/SPAN/A//text())" /> 
 				</contentMeta>
 
 				<contentMeta name="description">
-					<xsl:value-of select="normalize-space(//DIV[@class='typeComment_wanted']/DIV[@class='grid_last']/P/text())" />
+					<xsl:value-of select="normalize-space(//SPAN[@class='avis_de_recherche_desceiptif_typo_bleu']/text())" />
 				</contentMeta>
 
 				
