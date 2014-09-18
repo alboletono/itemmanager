@@ -33,7 +33,6 @@ import org.apache.nutch.parse.HtmlParseFilter;
 import org.apache.nutch.parse.Parse;
 import org.apache.nutch.parse.ParseResult;
 import org.apache.nutch.parse.ParseText;
-import org.apache.nutch.parse.html.HtmlParser;
 import org.apache.nutch.parse.xsl.xml.document.Documents;
 import org.apache.nutch.parse.xsl.xml.document.TContentMeta;
 import org.apache.nutch.parse.xsl.xml.document.TDocument;
@@ -100,7 +99,7 @@ public class XslParseFilter implements HtmlParseFilter {
 	/**
 	 * Default constructor forbidden.
 	 */
-	private XslParseFilter() {
+	public XslParseFilter() {
 		super();
 	}
 

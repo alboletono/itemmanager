@@ -27,7 +27,7 @@
 		<name>parser.xsl.output.debug.file</name>
 		<value>src/plugin/parse-xsl/src/tests/files/copainsdavant/output.xml
 		</value>
-		<description>The output of the tranformation for debug purpose (log
+		<description>The output of the transformation for debug purpose (log
 			level "DEBUG"
 			shall be activated)
 		</description>

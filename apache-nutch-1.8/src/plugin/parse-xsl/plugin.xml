@@ -29,6 +29,7 @@
 
    <requires>
       <import plugin="nutch-extensionpoints"/>
+      <import plugin="parse-html"/>
    </requires>
 
    <extension id="org.apache.nutch.parse.xsl.XslParseFilter"
