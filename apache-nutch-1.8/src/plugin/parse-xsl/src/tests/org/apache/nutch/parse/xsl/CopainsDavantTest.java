@@ -29,7 +29,7 @@ public class CopainsDavantTest extends AbstractAmisFinder {
 	 */
 	public CopainsDavantTest(PARSER parser) {
 		super(parser);
-		this.getConfiguration().set(XslParseFilterManager.CONF_XSLT_FILE,
+		this.getConfiguration().set(RulesManager.CONF_XML_RULES,
 				"src/plugin/parse-xsl/src/tests/files/copainsdavant/rules.xml");
 	}
 

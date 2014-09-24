@@ -24,7 +24,7 @@ public class JeTeRechercheTest extends AbstractAmisFinder {
 	 */
 	public JeTeRechercheTest(PARSER parser) {
 		super(parser);
-		this.getConfiguration().set(XslParseFilterManager.CONF_XSLT_FILE,
+		this.getConfiguration().set(RulesManager.CONF_XML_RULES,
 				"src/plugin/parse-xsl/src/tests/files/jeterecherche/rules.xml");
 	}
 

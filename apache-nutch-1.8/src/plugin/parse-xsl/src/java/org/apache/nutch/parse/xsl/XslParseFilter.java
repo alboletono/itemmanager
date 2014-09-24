@@ -20,12 +20,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import javax.xml.bind.JAXB;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.nutch.parse.HTMLMetaTags;
@@ -83,8 +81,7 @@ public class XslParseFilter implements HtmlParseFilter {
 	 * Wether to use Neko or Tagsoup.
 	 * 
 	 * @Warning this configuration property is set by nutch and not by the
-	 *          current plugin.
-	 * @see HtmlParser
+	 *          current plugin. see HtmlParser
 	 */
 	public static final String CONF_HTML_PARSER = "parser.html.impl";
 
@@ -93,31 +90,11 @@ public class XslParseFilter implements HtmlParseFilter {
 
 	private Configuration conf;
 
-	/** The transformer used to process html input. */
-	protected Transformer transformer;
-
 	/**
 	 * Default constructor forbidden.
 	 */
 	public XslParseFilter() {
 		super();
-	}
-
-	/**
-	 * 
-	 * @param xslFilePath
-	 *            the file path of the xsl to load for transformer object.
-	 * @throws Exception
-	 */
-	public XslParseFilter(String xslFilePath) throws Exception {
-		this();
-		try {
-			this.transformer = TransformerFactory.newInstance().newTransformer(
-					new StreamSource(xslFilePath));
-		} catch (Exception e) {
-			throw new Exception("Cannot create transformer for xsl file "
-					+ xslFilePath, e);
-		}
 	}
 
 	/**
@@ -161,11 +138,15 @@ public class XslParseFilter implements HtmlParseFilter {
 						"net.sf.saxon.TransformerFactoryImpl");
 			}
 
+			// Rules manager that contains url corresponding transformer.
+			RulesManager manager = RulesManager.getInstance(this.conf);
+
 			DOMResult result = new DOMResult();
 			// At this state, thanks to the HtmlParser that is using
 			// HtmlParseFilter interface, we got
 			// a DOM object properly built (with Neko or TagSoup).
-			this.transformer.transform(new DOMSource(doc), result);
+			manager.getTransformer(content.getUrl()).transform(
+					new DOMSource(doc), result);
 
 			// Storing the xml output for debug purpose
 			if (LOG.isDebugEnabled()) {
@@ -215,11 +196,19 @@ public class XslParseFilter implements HtmlParseFilter {
 			for (TContentMeta content : document.getContentMeta()) {
 				String value = content.getValue();
 				// Trim values by default
-				if (value != null)
-					value.trim();
-				// Do not keep string with 0 size
-				if (value.length() != 0)
-					data.getData().getParseMeta().add(content.getName(), value);
+				if (value != null) {
+					value = value.trim();
+					// Do not keep string with 0 size
+					if (value.length() != 0) {
+						// TODO see if it can be set in parseMeta (but not visible under Solr).
+						// It seems that parseMeta is only dedicated to plugin communication.
+						data.getData().getContentMeta()
+								.add(content.getName(), value);
+					}
+					if (LOG.isDebugEnabled())
+						LOG.debug("Content " + content.getName()
+								+ " has value: '" + value + "'");
+				}
 			}
 		}
 
