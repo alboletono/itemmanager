@@ -124,7 +124,7 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 		ParseResult parseResult = simulateCrawl(this.parser, filePath, url);
 		assertNotNull(parseResult);
 
-		Metadata parsedMetadata = parseResult.get(url).getData().getContentMeta();
+		Metadata parsedMetadata = parseResult.get(url).getData().getParseMeta();
 		assertNotNull(parsedMetadata);
 		return parsedMetadata;
 	}
@@ -145,7 +145,7 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 			throws Exception {
 		ParseResult parseResult = simulateCrawl(this.parser, filePath, url);
 		assertNotNull(parseResult.get(url));
-		Metadata parsedMetadata = parseResult.get(url).getData().getContentMeta();
+		Metadata parsedMetadata = parseResult.get(url).getData().getParseMeta();
 		assertNotNull(parsedMetadata);
 		return parsedMetadata;
 	}

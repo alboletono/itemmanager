@@ -112,6 +112,8 @@ public class XslParseFilter implements HtmlParseFilter {
 	public ParseResult filter(Content content, ParseResult parseResult,
 			HTMLMetaTags metaTags, DocumentFragment document) {
 
+		ParseResult pResult = parseResult;
+		
 		try {
 			// We are selecting the HTML tag with a XPath to convert the
 			// DocumentFragment to a more natural
@@ -158,17 +160,13 @@ public class XslParseFilter implements HtmlParseFilter {
 
 			XslParseFilter.updateMetadata(result.getNode(), parse);
 
-			// Setting updated metadata.
-			parseResult.put(content.getUrl(), new ParseText(parse.getText()),
-					parse.getData());
-
 		} catch (Exception e) {
 			LOG.warn(
 					"Cannot extract HTML tags. The XSL processing will not be run.",
 					e);
 		}
 
-		return parseResult;
+		return pResult;
 	}
 
 	/**
@@ -200,9 +198,8 @@ public class XslParseFilter implements HtmlParseFilter {
 					value = value.trim();
 					// Do not keep string with 0 size
 					if (value.length() != 0) {
-						// TODO see if it can be set in parseMeta (but not visible under Solr).
-						// It seems that parseMeta is only dedicated to plugin communication.
-						data.getData().getContentMeta()
+						// Adds the meta to the parse meta list
+						data.getData().getParseMeta()
 								.add(content.getName(), value);
 					}
 					if (LOG.isDebugEnabled())
