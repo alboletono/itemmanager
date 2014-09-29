@@ -15,8 +15,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project name="parse-js" default="jar-core">
+<project name="nutch-marmiton" default="jar-core">
 
+	<!--
 	<setproxy proxyhost="ptx.proxy.corp.sopra" proxyport="8080" proxyuser="avigier" proxypassword="SAbine2013" />
 	<import file="../build-plugin.xml"/>
 
