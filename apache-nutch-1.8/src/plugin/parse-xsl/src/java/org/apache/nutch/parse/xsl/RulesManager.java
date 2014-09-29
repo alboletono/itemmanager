@@ -91,11 +91,11 @@ public class RulesManager {
 	 * 
 	 * @param url
 	 *            the url to filter
-	 * @return the transformer that suits the rules
+	 * @return the transformer file path that suits the rules
 	 * @throws Exception
 	 */
-	public Transformer getTransformer(String url) throws Exception {
-		Transformer transformer = null;
+	public String getTransformerFilePath(String url) throws Exception {
+		String xslFile = null;
 
 		// Search for a matching rule by applying defined regex
 		// The first matching rule will be applied
@@ -105,26 +105,54 @@ public class RulesManager {
 					LOG.debug("A rule is matching the regex: "
 							+ rule.getMatches());
 				}
-				String xslFile = rule.getTransformer().getFile();
-				// Creating map if needed
-				if (this.transformers == null) {
-					this.transformers = new HashMap<String, Transformer>();
-				}
+				xslFile = rule.getTransformer().getFile();
+
+				break;
+			}
+		}
+		if (xslFile == null) {
+			throw new Exception("No filter found for url: " + url);
+		}
+
+		return xslFile;
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 *            the url to filter
+	 * @return the transformer that suits the rules
+	 * @throws Exception
+	 */
+	public Transformer getTransformer(String url) throws Exception {
+		Transformer transformer = null;
+		String xslFile = this.getTransformerFilePath(url);
+		if (xslFile != null) {
+			// Creating map if needed
+			if (this.transformers == null) {
+				this.transformers = new HashMap<String, Transformer>();
 				transformer = this.transformers.get(xslFile);
 				// Getting xsl file
 				if (transformer == null) {
 					transformer = createTransformer(xslFile);
 					this.transformers.put(xslFile, transformer);
 				}
-				break;
 			}
+			
 		}
-		if (transformer == null) {
-			throw new Exception("No filter found for url: " + url);
-		}
-
 		return transformer;
 	}
+	
+	/**
+	 * 
+	 * @param url the url to test match in rules file
+	 * @return true if the url is matching a rule.
+	 * @throws Exception
+	 */
+	public boolean matches(String url) throws Exception {
+		return this.getTransformerFilePath(url) != null;
+	}
+	
 
 	/**
 	 * 
