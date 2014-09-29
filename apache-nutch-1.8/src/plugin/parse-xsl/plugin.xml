@@ -32,15 +32,18 @@
       <import plugin="parse-html"/>
    </requires>
 
-   <extension id="org.apache.nutch.parse.xsl.XslParseFilter"
+   <extension id="org.apache.nutch.parse"
               name="Parse XSL Filter"
               point="org.apache.nutch.parse.HtmlParseFilter">
-      <implementation id="XslParseFilter"
-         class="org.apache.nutch.parse.xsl.XslParseFilter">
-        <parameter name="contentType" value="application/html"/>
-        <parameter name="pathSuffix"  value=""/>
+      <implementation id="XslParseFilter" class="org.apache.nutch.parse.xsl.XslParseFilter">
       </implementation>
    </extension>
-
+   
+   <extension id="org.apache.nutch.indexer"
+              name="Index XSL Filter"
+              point="org.apache.nutch.indexer.IndexingFilter">
+      <implementation id="XslIndexFilter" class="org.apache.nutch.parse.xsl.XslIndexFilter">
+      </implementation>
+   </extension>
 
 </plugin>

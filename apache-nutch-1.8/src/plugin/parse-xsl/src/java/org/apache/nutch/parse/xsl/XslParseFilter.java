@@ -113,6 +113,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			// We are selecting the HTML tag with a XPath to convert the
 			// DocumentFragment to a more natural
 			// HTML document that can be further processed with XSL.
+			// TODO applying an "html" xpath is a dirty trick to change.
 			String xpath = "//html";
 
 			// For neko, all tags are UPPER CASE.

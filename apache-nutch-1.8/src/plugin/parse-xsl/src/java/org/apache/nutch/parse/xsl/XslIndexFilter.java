@@ -1,7 +1,12 @@
 package org.apache.nutch.parse.xsl;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
@@ -14,6 +19,10 @@ import org.apache.nutch.parse.Parse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
+
+import com.sun.org.apache.xpath.internal.XPathAPI;
 
 /**
  * This class allows to:
@@ -49,6 +58,8 @@ public class XslIndexFilter implements IndexingFilter {
 	public NutchDocument filter(NutchDocument doc, Parse parse, Text url, CrawlDatum datum, Inlinks inlinks) throws IndexingException {
 
 		NutchDocument result = null;
+		if (doc == null)
+			return result;
 
 		try {
 
@@ -60,10 +71,25 @@ public class XslIndexFilter implements IndexingFilter {
 
 			// The url matches a rule, we keep it
 			if (xsltFilePath != null) {
+				// We keep the document
+				result = doc;
 				List<String> fields = XslIndexFilter.transformers.get(xsltFilePath);
-				
-				
-				
+				// List was never loaded
+				if (fields == null) {
+					fields = this.extractFields(xsltFilePath);
+				}
+
+				// All the fields defined in the xsl file will be put directly
+				// into the nutch document
+				// Fields defined by the xsl plugin are only stored in parse
+				// meta.
+				if (parse != null && parse.getData() != null && parse.getData().getParseMeta() != null) {
+					for (String field : fields) {
+						String value = parse.getData().getParseMeta().get(field);
+						doc.add(field, value);
+					}
+				}
+
 			}
 
 		} catch (Exception e) {
@@ -75,6 +101,33 @@ public class XslIndexFilter implements IndexingFilter {
 		}
 
 		return result;
+	}
+
+	/**
+	 * 
+	 * @param xsltFilePath
+	 *            the path of the xsl file
+	 * @return the list of fields defined in xsl file
+	 * @throws Exception
+	 */
+	protected List<String> extractFields(String xsltFilePath) throws Exception {
+		List<String> fields = new ArrayList<String>();
+		// Creating xsl DOM document
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(xsltFilePath));
+		NodeList list = XPathAPI.selectNodeList(document, "//contentMeta");
+		HashSet<String> hashedFields = new HashSet<String>();
+		// Populating list
+		for (int i = 0; i < list.getLength(); i++) {
+			NamedNodeMap attributes = list.item(i).getAttributes();
+			if (attributes != null && attributes.getNamedItem("name") != null) {
+				hashedFields.add(attributes.getNamedItem("name").getNodeValue());
+			}
+		}
+		// Keeps list
+		fields.addAll(hashedFields);
+		XslIndexFilter.transformers.put(xsltFilePath, fields);
+
+		return fields;
 	}
 
 }
