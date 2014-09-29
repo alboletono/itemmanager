@@ -30,7 +30,6 @@ import org.apache.nutch.parse.HTMLMetaTags;
 import org.apache.nutch.parse.HtmlParseFilter;
 import org.apache.nutch.parse.Parse;
 import org.apache.nutch.parse.ParseResult;
-import org.apache.nutch.parse.ParseText;
 import org.apache.nutch.parse.xsl.xml.document.Documents;
 import org.apache.nutch.parse.xsl.xml.document.TContentMeta;
 import org.apache.nutch.parse.xsl.xml.document.TDocument;
@@ -85,8 +84,7 @@ public class XslParseFilter implements HtmlParseFilter {
 	 */
 	public static final String CONF_HTML_PARSER = "parser.html.impl";
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(XslParseFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(XslParseFilter.class);
 
 	private Configuration conf;
 
@@ -109,11 +107,8 @@ public class XslParseFilter implements HtmlParseFilter {
 	 * @return the resulting {@link ParseResult}
 	 */
 	@Override
-	public ParseResult filter(Content content, ParseResult parseResult,
-			HTMLMetaTags metaTags, DocumentFragment document) {
+	public ParseResult filter(Content content, ParseResult parseResult, HTMLMetaTags metaTags, DocumentFragment document) {
 
-		ParseResult pResult = parseResult;
-		
 		try {
 			// We are selecting the HTML tag with a XPath to convert the
 			// DocumentFragment to a more natural
@@ -123,8 +118,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			// For neko, all tags are UPPER CASE.
 			// For tagsoup, it is in lower case.
 			// This is decided by the html parser plugin
-			if (this.conf.get(CONF_HTML_PARSER, PARSER.NEKO.toString()).equals(
-					PARSER.NEKO.toString())) {
+			if (this.conf.get(CONF_HTML_PARSER, PARSER.NEKO.toString()).equals(PARSER.NEKO.toString())) {
 				xpath = xpath.toUpperCase();
 			} else {
 				throw new Exception("tag soup parser not implemented.");
@@ -136,8 +130,7 @@ public class XslParseFilter implements HtmlParseFilter {
 
 			// Do we use saxon for xslt 2.0 compliancy?
 			if (this.getConf().getBoolean(CONF_XSLT_USE_SAXON, false)) {
-				System.setProperty("javax.xml.transform.TransformerFactory",
-						"net.sf.saxon.TransformerFactoryImpl");
+				System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 			}
 
 			// Rules manager that contains url corresponding transformer.
@@ -147,26 +140,22 @@ public class XslParseFilter implements HtmlParseFilter {
 			// At this state, thanks to the HtmlParser that is using
 			// HtmlParseFilter interface, we got
 			// a DOM object properly built (with Neko or TagSoup).
-			manager.getTransformer(content.getUrl()).transform(
-					new DOMSource(doc), result);
+			manager.getTransformer(content.getUrl()).transform(new DOMSource(doc), result);
 
 			// Storing the xml output for debug purpose
 			if (LOG.isDebugEnabled()) {
 				String debugFile = this.conf.get(CONF_XSLT_OUTPUT_DEBUG_FILE);
 				if (debugFile != null)
-					XslParseFilter.saveDOMOutput(result.getNode(), new File(
-							debugFile));
+					XslParseFilter.saveDOMOutput(result.getNode(), new File(debugFile));
 			}
 
 			XslParseFilter.updateMetadata(result.getNode(), parse);
 
 		} catch (Exception e) {
-			LOG.warn(
-					"Cannot extract HTML tags. The XSL processing will not be run.",
-					e);
+			LOG.warn("Cannot extract HTML tags. The XSL processing will not be run.", e);
 		}
 
-		return pResult;
+		return parseResult;
 	}
 
 	/**
@@ -178,8 +167,7 @@ public class XslParseFilter implements HtmlParseFilter {
 	 */
 	protected static void updateMetadata(Node node, Parse data) {
 
-		Documents documents = JAXB.unmarshal(new DOMSource(node),
-				Documents.class);
+		Documents documents = JAXB.unmarshal(new DOMSource(node), Documents.class);
 
 		// No document unmarshalled
 		if (documents == null) {
@@ -199,12 +187,10 @@ public class XslParseFilter implements HtmlParseFilter {
 					// Do not keep string with 0 size
 					if (value.length() != 0) {
 						// Adds the meta to the parse meta list
-						data.getData().getParseMeta()
-								.add(content.getName(), value);
+						data.getData().getParseMeta().add(content.getName(), value);
 					}
 					if (LOG.isDebugEnabled())
-						LOG.debug("Content " + content.getName()
-								+ " has value: '" + value + "'");
+						LOG.debug("Content " + content.getName() + " has value: '" + value + "'");
 				}
 			}
 		}
@@ -224,12 +210,9 @@ public class XslParseFilter implements HtmlParseFilter {
 		try {
 			fos = new FileOutputStream(file);
 
-			TransformerFactory.newInstance().newTransformer()
-					.transform(new DOMSource(node), new StreamResult(fos));
+			TransformerFactory.newInstance().newTransformer().transform(new DOMSource(node), new StreamResult(fos));
 		} catch (Exception e) {
-			LOG.warn(
-					"Cannot store DOM node to file: " + file.getAbsolutePath(),
-					e);
+			LOG.warn("Cannot store DOM node to file: " + file.getAbsolutePath(), e);
 		} finally {
 			if (fos != null)
 				try {
