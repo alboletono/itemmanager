@@ -6,17 +6,16 @@ package org.apache.nutch.parse.xsl;
 public class CommonMetadata {
 
 	/* Metadata related to wanted people */
-	
+
 	/** description of the wanted people */
 	public static final String META_DESCRIPTION = "description";
 	/** the people that is searching */
 	public static final String META_SEARCHER_PEOPLE = "searcherPeople";
 	/** the people that is searched */
 	public static final String META_WANTED_PEOPLE = "wantedPeople";
-	
-	
+
 	/* Metadata related */
-	
+
 	/** birth date metadata */
 	public static final String META_PEOPLE_BIRTH_DATE = "birthDate";
 	/** country metadata */

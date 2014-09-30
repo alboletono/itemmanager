@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class allows to manage a set of Transformer singletons. It allows to
- * avoid having several instances of Transformers with XSL to load each time
- * for performance matter. The decision to use a given Transformer is
- * determined by a set of rules (@see Rules)
+ * avoid having several instances of Transformers with XSL to load each time for
+ * performance matter. The decision to use a given Transformer is determined by
+ * a set of rules (@see Rules)
  * 
  * @see Transformer
  * @author avigier
@@ -35,8 +35,7 @@ public class RulesManager {
 	/** The XSLT file to use for transformation */
 	public static final String CONF_XML_RULES = "parser.xsl.rulesFile";
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(RulesManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RulesManager.class);
 
 	private static RulesManager instance = null;
 
@@ -46,7 +45,7 @@ public class RulesManager {
 	private RulesManager() {
 		super();
 	}
-	
+
 	/**
 	 * Instanciates an object using the apache nutch configuration (that
 	 * contains the property defining the rules).
@@ -60,15 +59,13 @@ public class RulesManager {
 		// Getting rules file
 		String rulesFile = configuration.get(CONF_XML_RULES);
 		if (rulesFile == null)
-			throw new Exception(
-					"The rules file shall be set in your configuration file");
+			throw new Exception("The rules file shall be set in your configuration file");
 
 		// Loading rules object
 		try {
 			this.rules = JAXB.unmarshal(new File(rulesFile), Rules.class);
 		} catch (Exception e) {
-			throw new Exception("Cannot load the rules file, please check it.",
-					e);
+			throw new Exception("Cannot load the rules file, please check it.", e);
 		}
 
 	}
@@ -79,8 +76,7 @@ public class RulesManager {
 	 * @return the singleton instance
 	 * @throws Exception
 	 */
-	public static RulesManager getInstance(Configuration configuration)
-			throws Exception {
+	public static RulesManager getInstance(Configuration configuration) throws Exception {
 		if (instance == null)
 			instance = new RulesManager(configuration);
 		return instance;
@@ -102,8 +98,7 @@ public class RulesManager {
 		for (TRule rule : this.rules.getRule()) {
 			if (url.matches(rule.getMatches())) {
 				if (LOG.isDebugEnabled()) {
-					LOG.debug("A rule is matching the regex: "
-							+ rule.getMatches());
+					LOG.debug("A rule is matching the regex: " + rule.getMatches());
 				}
 				xslFile = rule.getTransformer().getFile();
 
@@ -116,7 +111,7 @@ public class RulesManager {
 
 		return xslFile;
 	}
-	
+
 	/**
 	 * 
 	 * @param url
@@ -138,21 +133,21 @@ public class RulesManager {
 					this.transformers.put(xslFile, transformer);
 				}
 			}
-			
+
 		}
 		return transformer;
 	}
-	
+
 	/**
 	 * 
-	 * @param url the url to test match in rules file
+	 * @param url
+	 *            the url to test match in rules file
 	 * @return true if the url is matching a rule.
 	 * @throws Exception
 	 */
 	public boolean matches(String url) throws Exception {
 		return this.getTransformerFilePath(url) != null;
 	}
-	
 
 	/**
 	 * 
@@ -164,11 +159,9 @@ public class RulesManager {
 	private Transformer createTransformer(String xslFile) throws Exception {
 		Transformer transformer = null;
 		try {
-			transformer = TransformerFactory.newInstance().newTransformer(
-					new StreamSource(xslFile));
+			transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(xslFile));
 		} catch (Exception e) {
-			throw new Exception("Cannot create transformer for xsl file "
-					+ xslFile, e);
+			throw new Exception("Cannot create transformer for xsl file " + xslFile, e);
 		}
 		return transformer;
 	}

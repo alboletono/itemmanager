@@ -114,7 +114,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			// DocumentFragment to a more natural
 			// HTML document that can be further processed with XSL.
 			// TODO applying an "html" xpath is a dirty trick to change.
-			String xpath = "//html";
+			String xpath = "html";
 
 			// For neko, all tags are UPPER CASE.
 			// For tagsoup, it is in lower case.
@@ -122,6 +122,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			if (this.conf.get(CONF_HTML_PARSER, PARSER.NEKO.toString()).equals(PARSER.NEKO.toString())) {
 				xpath = xpath.toUpperCase();
 			} else {
+				// TODO Tag soup is not working. To be investigated.
 				throw new Exception("tag soup parser not implemented.");
 			}
 

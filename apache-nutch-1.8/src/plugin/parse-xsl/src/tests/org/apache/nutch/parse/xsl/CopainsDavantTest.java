@@ -29,10 +29,14 @@ public class CopainsDavantTest extends AbstractAmisFinder {
 	 */
 	public CopainsDavantTest(PARSER parser) {
 		super(parser);
-		this.getConfiguration().set(RulesManager.CONF_XML_RULES,
-				"src/plugin/parse-xsl/src/tests/files/copainsdavant/rules.xml");
+		this.getConfiguration().set(RulesManager.CONF_XML_RULES, "src/plugin/parse-xsl/src/tests/files/copainsdavant/rules.xml");
 	}
 
+	/**
+	 * Initializes parameters. TODO integrate test for Tag Soup when working.
+	 * 
+	 * @return the collection of parameters.
+	 */
 	@Parameters(name = "{index}: parser {0}")
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] { { PARSER.NEKO } });
@@ -45,13 +49,9 @@ public class CopainsDavantTest extends AbstractAmisFinder {
 	@Test
 	public void testPeople() throws Exception {
 
-		Metadata metadata = super
-				.startTestPeople(
-						"http://copainsdavant.linternaute.com/p/dominique-a-6984602",
-						"src/plugin/parse-xsl/src/tests/files/copainsdavant/people1.html");
+		Metadata metadata = super.startTestPeople("http://copainsdavant.linternaute.com/p/dominique-a-6984602", "src/plugin/parse-xsl/src/tests/files/copainsdavant/people1.html");
 
-		this.assertMetadataPeople(metadata, "Dominique", "A.", "male",
-				"BRETIGNY SUR ORGE", "France", "1977", null);
+		this.assertMetadataPeople(metadata, "Dominique", "A.", "male", "BRETIGNY SUR ORGE", "France", "1977", null);
 	}
 
 	/**
@@ -62,10 +62,7 @@ public class CopainsDavantTest extends AbstractAmisFinder {
 	@Test
 	public void testWantedPeople() throws Exception {
 
-		Metadata metadata = super
-				.startTestWantedPeople(
-						"http://copainsdavant.linternaute.com/recherche-amis/danielle-uchi-6460",
-						"src/plugin/parse-xsl/src/tests/files/copainsdavant/wanted1.html");
+		Metadata metadata = super.startTestWantedPeople("http://copainsdavant.linternaute.com/recherche-amis/danielle-uchi-6460", "src/plugin/parse-xsl/src/tests/files/copainsdavant/wanted1.html");
 
 		this.assertMetadataWantedPeople(
 				metadata,

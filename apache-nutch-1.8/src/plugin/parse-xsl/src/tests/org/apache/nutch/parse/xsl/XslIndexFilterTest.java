@@ -11,6 +11,9 @@ import junit.framework.TestCase;
  */
 public class XslIndexFilterTest extends TestCase {
 
+	/**
+	 * Test the fields fetch from xsl file.
+	 */
 	public void testFields() {
 		XslIndexFilter filter = new XslIndexFilter();
 		try {

@@ -32,6 +32,10 @@ import com.sun.org.apache.xpath.internal.XPathAPI;
  */
 public class XslIndexFilter implements IndexingFilter {
 
+	private static final String NAME_ATTRIBUTE = "name";
+
+	private static final String CONTENT_META = "//contentMeta";
+
 	private Configuration conf;
 
 	private static final Logger LOG = LoggerFactory.getLogger(XslParseFilter.class);
@@ -114,13 +118,13 @@ public class XslIndexFilter implements IndexingFilter {
 		List<String> fields = new ArrayList<String>();
 		// Creating xsl DOM document
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(xsltFilePath));
-		NodeList list = XPathAPI.selectNodeList(document, "//contentMeta");
+		NodeList list = XPathAPI.selectNodeList(document, CONTENT_META);
 		HashSet<String> hashedFields = new HashSet<String>();
 		// Populating list
 		for (int i = 0; i < list.getLength(); i++) {
 			NamedNodeMap attributes = list.item(i).getAttributes();
-			if (attributes != null && attributes.getNamedItem("name") != null) {
-				hashedFields.add(attributes.getNamedItem("name").getNodeValue());
+			if (attributes != null && attributes.getNamedItem(NAME_ATTRIBUTE) != null) {
+				hashedFields.add(attributes.getNamedItem(NAME_ATTRIBUTE).getNodeValue());
 			}
 		}
 		// Keeps list

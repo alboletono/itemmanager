@@ -34,16 +34,18 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 	/** The current parser to use */
 	protected PARSER parser = null;
 
+	/**
+	 * @param parser the parser to use
+	 * Instanciates the class given a specific parser. 
+	 */
 	protected AbstractAmisFinder(PARSER parser) {
 		this.parser = parser;
 		// Depending of the parameters, the configuration will be built
 		// differently */
 		if (parser == PARSER.NEKO) {
-			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER,
-					PARSER.NEKO.toString());
+			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER, PARSER.NEKO.toString());
 		} else {
-			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER,
-					PARSER.TAGSOUP.toString());
+			this.getConfiguration().set(XslParseFilter.CONF_HTML_PARSER, PARSER.TAGSOUP.toString());
 		}
 
 	}
@@ -60,16 +62,12 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 	 * @param country
 	 * @param birthDate
 	 */
-	protected void assertMetadataPeople(Metadata metadata, String firstName,
-			String lastName, String gender, String city, String country,
-			String birthDate, String age) {
+	protected void assertMetadataPeople(Metadata metadata, String firstName, String lastName, String gender, String city, String country, String birthDate, String age) {
 		// Testing first name
-		assertEquals(firstName,
-				metadata.get(CommonMetadata.META_PEOPLE_FIRST_NAME));
+		assertEquals(firstName, metadata.get(CommonMetadata.META_PEOPLE_FIRST_NAME));
 
 		// Testing last name
-		assertEquals(lastName,
-				metadata.get(CommonMetadata.META_PEOPLE_LAST_NAME));
+		assertEquals(lastName, metadata.get(CommonMetadata.META_PEOPLE_LAST_NAME));
 
 		// Testing gender
 		assertEquals(gender, metadata.get(CommonMetadata.META_PEOPLE_GENDER));
@@ -81,12 +79,10 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 		assertEquals(country, metadata.get(CommonMetadata.META_PEOPLE_COUNTRY));
 
 		// Testing birth date
-		assertEquals(birthDate,
-				metadata.get(CommonMetadata.META_PEOPLE_BIRTH_DATE));
-		
+		assertEquals(birthDate, metadata.get(CommonMetadata.META_PEOPLE_BIRTH_DATE));
+
 		// Testing age
-		assertEquals(age,
-				metadata.get(CommonMetadata.META_PEOPLE_AGE));
+		assertEquals(age, metadata.get(CommonMetadata.META_PEOPLE_AGE));
 	}
 
 	/**
@@ -96,13 +92,10 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 	 * @param searcherPeople
 	 * @param description
 	 */
-	protected void assertMetadataWantedPeople(Metadata metadata,
-			String wantedPeople, String searcherPeople, String description) {
+	protected void assertMetadataWantedPeople(Metadata metadata, String wantedPeople, String searcherPeople, String description) {
 
-		assertEquals(searcherPeople,
-				metadata.get(CommonMetadata.META_SEARCHER_PEOPLE));
-		assertEquals(wantedPeople,
-				metadata.get(CommonMetadata.META_WANTED_PEOPLE));
+		assertEquals(searcherPeople, metadata.get(CommonMetadata.META_SEARCHER_PEOPLE));
+		assertEquals(wantedPeople, metadata.get(CommonMetadata.META_WANTED_PEOPLE));
 		assertEquals(description, metadata.get(CommonMetadata.META_DESCRIPTION));
 	}
 
@@ -118,8 +111,7 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 	 * @throws Exception
 	 */
 
-	public Metadata startTestPeople(String url, String filePath)
-			throws Exception {
+	public Metadata startTestPeople(String url, String filePath) throws Exception {
 
 		ParseResult parseResult = simulateCrawl(this.parser, filePath, url);
 		assertNotNull(parseResult);
@@ -141,8 +133,7 @@ public abstract class AbstractAmisFinder extends AbstractCrawlTest {
 	 * @return {@link Metadata} that were extracted.
 	 * @throws Exception
 	 */
-	public Metadata startTestWantedPeople(String url, String filePath)
-			throws Exception {
+	public Metadata startTestWantedPeople(String url, String filePath) throws Exception {
 		ParseResult parseResult = simulateCrawl(this.parser, filePath, url);
 		assertNotNull(parseResult.get(url));
 		Metadata parsedMetadata = parseResult.get(url).getData().getParseMeta();
