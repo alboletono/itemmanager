@@ -93,12 +93,15 @@ public class RulesManager {
 	public String getTransformerFilePath(String url) throws Exception {
 		String xslFile = null;
 
+		if (url == null)
+			throw new Exception("Cannot get transformer for a null url");
+
 		// Search for a matching rule by applying defined regex
 		// The first matching rule will be applied
 		for (TRule rule : this.rules.getRule()) {
 			if (url.matches(rule.getMatches())) {
 				if (LOG.isDebugEnabled()) {
-					LOG.debug("A rule is matching the regex: " + rule.getMatches());
+					LOG.debug(String.format("Url %s is matching regex rule %s", url, rule.getMatches()));
 				}
 				xslFile = rule.getTransformer().getFile();
 
@@ -126,12 +129,12 @@ public class RulesManager {
 			// Creating map if needed
 			if (this.transformers == null) {
 				this.transformers = new HashMap<String, Transformer>();
-				transformer = this.transformers.get(xslFile);
-				// Getting xsl file
-				if (transformer == null) {
-					transformer = createTransformer(xslFile);
-					this.transformers.put(xslFile, transformer);
-				}
+			}
+			transformer = this.transformers.get(xslFile);
+			// Getting xsl file
+			if (transformer == null) {
+				transformer = createTransformer(xslFile);
+				this.transformers.put(xslFile, transformer);
 			}
 
 		}

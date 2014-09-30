@@ -71,7 +71,12 @@ public class XslIndexFilter implements IndexingFilter {
 			RulesManager manager = RulesManager.getInstance(this.conf);
 
 			// Getting transformer file path associated to rule if exists
-			String xsltFilePath = manager.getTransformerFilePath(url.toString());
+			String xsltFilePath = null;
+			try {
+				xsltFilePath = manager.getTransformerFilePath(url.toString());
+			} catch (Exception e) {
+				LOG.info("Xslt not found");
+			}
 
 			// The url matches a rule, we keep it
 			if (xsltFilePath != null) {
@@ -94,6 +99,10 @@ public class XslIndexFilter implements IndexingFilter {
 					}
 				}
 
+			}
+			// The document is not indexed
+			else {
+				LOG.info("The url " + url.toString() + " has been filtered because no xsl file fits the defined rules");
 			}
 
 		} catch (Exception e) {
