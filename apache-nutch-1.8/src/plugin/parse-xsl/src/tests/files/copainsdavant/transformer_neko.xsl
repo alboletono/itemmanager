@@ -7,30 +7,30 @@
 	<xsl:template match="/">
 		<documents>
 			<document>
-				<contentMeta name="lastName">
+				<field name="lastName">
 					<xsl:value-of select="//META[@property='profile:last_name']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="firstName">
+				<field name="firstName">
 					<xsl:value-of select="//META[@property='profile:first_name']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="gender">
+				<field name="gender">
 					<xsl:value-of select="//META[@property='profile:gender']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="city">
+				<field name="city">
 					<xsl:value-of select="//SPAN[@class='locality']" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="country">
+				<field name="country">
 					<xsl:value-of select="//SPAN[@class='country-name']" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="birthDate">
+				<field name="birthDate">
 					<xsl:variable name="extractedValue" select="//H4[text()='Né le :']/../P" />
 					<xsl:value-of select="normalize-space(substring-after(substring-before($extractedValue, '('), '.'))" />
-				</contentMeta>
+				</field>
 
 
 

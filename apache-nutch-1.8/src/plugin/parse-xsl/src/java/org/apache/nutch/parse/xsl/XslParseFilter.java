@@ -31,8 +31,8 @@ import org.apache.nutch.parse.HtmlParseFilter;
 import org.apache.nutch.parse.Parse;
 import org.apache.nutch.parse.ParseResult;
 import org.apache.nutch.parse.xsl.xml.document.Documents;
-import org.apache.nutch.parse.xsl.xml.document.TContentMeta;
 import org.apache.nutch.parse.xsl.xml.document.TDocument;
+import org.apache.nutch.parse.xsl.xml.document.TField;
 import org.apache.nutch.protocol.Content;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -181,18 +181,18 @@ public class XslParseFilter implements HtmlParseFilter {
 		for (TDocument document : documents.getDocument()) {
 
 			// There are metadata to process
-			for (TContentMeta content : document.getContentMeta()) {
-				String value = content.getValue();
+			for (TField field : document.getField()) {
+				String value = field.getValue();
 				// Trim values by default
 				if (value != null) {
 					value = value.trim();
 					// Do not keep string with 0 size
 					if (value.length() != 0) {
 						// Adds the meta to the parse meta list
-						data.getData().getParseMeta().add(content.getName(), value);
+						data.getData().getParseMeta().add(field.getName(), value);
 					}
 					if (LOG.isDebugEnabled())
-						LOG.debug("Content " + content.getName() + " has value: '" + value + "'");
+						LOG.debug("Content " + field.getName() + " has value: '" + value + "'");
 				}
 			}
 		}

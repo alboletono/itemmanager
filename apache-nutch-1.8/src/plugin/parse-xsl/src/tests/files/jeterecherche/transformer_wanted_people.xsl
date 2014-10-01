@@ -7,17 +7,17 @@
 	<xsl:template match="/">
 		<documents>
 			<document>
-				<contentMeta name="wantedPeople">
+				<field name="wantedPeople">
 					<xsl:value-of select="normalize-space(//TABLE[@class='avis_de_recherche_fiche_membre_tableau_titre']//TR/TD/SPAN/text())" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="searcherPeople">
+				<field name="searcherPeople">
 					<xsl:value-of select="normalize-space(//TABLE[@class='avis_de_recherche_fiche_membre_tableau_titre']//TR[2]/TD/STRONG/SPAN/A//text())" /> 
-				</contentMeta>
+				</field>
 
-				<contentMeta name="description">
+				<field name="description">
 					<xsl:value-of select="normalize-space(//SPAN[@class='avis_de_recherche_desceiptif_typo_bleu']/text())" />
-				</contentMeta>
+				</field>
 
 				
 			</document>

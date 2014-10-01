@@ -7,32 +7,32 @@
 	<xsl:template match="/">
 		<documents>
 			<document>
-				<contentMeta name="lastName">
+				<field name="lastName">
 					<xsl:value-of select="//meta[@property='profile:last_name']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="firstName">
+				<field name="firstName">
 					<xsl:value-of select="//meta[@property='profile:first_name']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="gender">
+				<field name="gender">
 					<xsl:value-of select="//meta[@property='profile:gender']/@content" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="city">
+				<field name="city">
 					<xsl:value-of select="//span[@class='locality']" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="country">
+				<field name="country">
 					<xsl:value-of select="//span[@class='country-name']" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="birthDate">
+				<field name="birthDate">
 					<xsl:value-of select="//h4[text()='Né le :']/../P" />
 					<!-- Need to upgrade to XSLT 2.0 <xsl:analyze-string select="//H4[text()='Né 
 						le :']/../P" regex="\d{4}"> <xsl:matching-substring> <xsl:value-of select="regex-group(0)" 
 						/> </xsl:matching-substring> </xsl:analyze-string> -->
-				</contentMeta>
+				</field>
 
 
 

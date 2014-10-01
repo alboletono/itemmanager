@@ -7,17 +7,17 @@
 	<xsl:template match="/">
 		<documents>
 			<document>
-				<contentMeta name="wantedPeople">
+				<field name="wantedPeople">
 					<xsl:value-of select="//H1[@class='linter_title_1']" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="searcherPeople">
+				<field name="searcherPeople">
 					<xsl:value-of select="//DIV[@class='grid_left w40']/DIV[@class='grid_row']/DIV[@class='grid_last']/A" />
-				</contentMeta>
+				</field>
 
-				<contentMeta name="description">
+				<field name="description">
 					<xsl:value-of select="normalize-space(//DIV[@class='typeComment_wanted']/DIV[@class='grid_last']/P/text())" />
-				</contentMeta>
+				</field>
 
 				
 			</document>

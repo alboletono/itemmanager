@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2014.09.12 à 10:15:09 PM CEST 
+// Généré le : 2014.10.01 à 09:02:06 PM CEST 
 //
 
 
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *         &lt;element name="contentMeta" type="{http://www.example.org/documents/}TContentMeta"/>
+ *         &lt;element name="field" type="{http://www.example.org/documents/}TField"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,39 +36,39 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TDocument", propOrder = {
-    "contentMeta"
+    "field"
 })
 public class TDocument {
 
-    protected List<TContentMeta> contentMeta;
+    protected List<TField> field;
 
     /**
-     * Gets the value of the contentMeta property.
+     * Gets the value of the field property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the contentMeta property.
+     * This is why there is not a <CODE>set</CODE> method for the field property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getContentMeta().add(newItem);
+     *    getField().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TContentMeta }
+     * {@link TField }
      * 
      * 
      */
-    public List<TContentMeta> getContentMeta() {
-        if (contentMeta == null) {
-            contentMeta = new ArrayList<TContentMeta>();
+    public List<TField> getField() {
+        if (field == null) {
+            field = new ArrayList<TField>();
         }
-        return this.contentMeta;
+        return this.field;
     }
 
 }

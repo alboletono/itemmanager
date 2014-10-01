@@ -8,6 +8,7 @@
 			<sequence maxOccurs="unbounded" minOccurs="1">
 				<element name="rule" type="rules:TRule"></element>
 			</sequence>
+			<attribute name="filterUrlsWithNoRule" type="boolean" use="optional" default="true"></attribute>
 		</complexType>
 	</element>
 
@@ -17,8 +18,6 @@
 		</sequence>
 		<attribute name="matches" type="string" use="required"></attribute>
 	</complexType>
-
-	<!-- <element name="documents" type="TDocuments"></element> -->
 
 	<complexType name="TTransformer">
 		<simpleContent>

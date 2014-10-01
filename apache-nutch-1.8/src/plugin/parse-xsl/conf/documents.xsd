@@ -13,13 +13,11 @@
 
 	<complexType name="TDocument">
 		<sequence maxOccurs="unbounded" minOccurs="0">
-			<element name="contentMeta" type="documents:TContentMeta"></element>
+			<element name="field" type="documents:TField"></element>
 		</sequence>
 	</complexType>
 
-	<!-- <element name="documents" type="TDocuments"></element> -->
-
-	<complexType name="TContentMeta">
+	<complexType name="TField">
 		<simpleContent>
 			<extension base="string">
 				<attribute name="name" type="string"></attribute>

@@ -34,7 +34,7 @@ public class XslIndexFilter implements IndexingFilter {
 
 	private static final String NAME_ATTRIBUTE = "name";
 
-	private static final String CONTENT_META = "//contentMeta";
+	private static final String FIELD_TAG = "//field";
 
 	private Configuration conf;
 
@@ -100,6 +100,11 @@ public class XslIndexFilter implements IndexingFilter {
 				}
 
 			}
+			// The document is indexed anyway because explicitly decided
+			else if (!manager.getRules().isFilterUrlsWithNoRule()) {
+				result = doc;
+				LOG.info("The url " + url.toString() + " has been kept because it has been explicitly specified in the rules");
+			}
 			// The document is not indexed
 			else {
 				LOG.info("The url " + url.toString() + " has been filtered because no xsl file fits the defined rules");
@@ -127,7 +132,7 @@ public class XslIndexFilter implements IndexingFilter {
 		List<String> fields = new ArrayList<String>();
 		// Creating xsl DOM document
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(xsltFilePath));
-		NodeList list = XPathAPI.selectNodeList(document, CONTENT_META);
+		NodeList list = XPathAPI.selectNodeList(document, FIELD_TAG);
 		HashSet<String> hashedFields = new HashSet<String>();
 		// Populating list
 		for (int i = 0; i < list.getLength(); i++) {

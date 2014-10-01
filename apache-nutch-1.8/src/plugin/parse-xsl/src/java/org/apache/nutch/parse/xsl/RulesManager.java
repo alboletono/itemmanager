@@ -168,5 +168,13 @@ public class RulesManager {
 		}
 		return transformer;
 	}
+	
+	
+	/**
+	 * @return the current set of rules defined in the xml file
+	 */
+	public Rules getRules() {
+		return rules;
+	}
 
 }
