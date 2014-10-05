@@ -16,9 +16,7 @@
  limitations under the License.
 -->
 <project name="parse-xsl" default="jar-core">
-<!--
-	<setproxy proxyhost="ptx.proxy.corp.sopra" proxyport="8080" proxyuser="avigier" proxypassword="SAbine2014" />
--->
+
 	<import file="../build-plugin.xml"/>
 	
 	
