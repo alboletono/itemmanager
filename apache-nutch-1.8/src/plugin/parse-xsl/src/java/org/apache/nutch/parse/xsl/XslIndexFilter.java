@@ -42,6 +42,9 @@ public class XslIndexFilter implements IndexingFilter {
 
 	private static HashMap<String, List<String>> transformers = new HashMap<String, List<String>>();
 
+	// Rules file to use
+	private String rulesFile;
+
 	/**
 	 * @return the current configuration.
 	 */
@@ -56,6 +59,9 @@ public class XslIndexFilter implements IndexingFilter {
 	@Override
 	public void setConf(Configuration conf) {
 		this.conf = conf;
+
+		// Getting rules file
+		this.rulesFile = this.conf.get(RulesManager.CONF_XML_RULES);
 	}
 
 	@Override
@@ -68,7 +74,7 @@ public class XslIndexFilter implements IndexingFilter {
 		try {
 
 			// Rules manager that contains url corresponding transformer.
-			RulesManager manager = RulesManager.getInstance(this.conf);
+			RulesManager manager = RulesManager.getInstance(this.rulesFile);
 
 			// Getting transformer file path associated to rule if exists
 			String xsltFilePath = null;

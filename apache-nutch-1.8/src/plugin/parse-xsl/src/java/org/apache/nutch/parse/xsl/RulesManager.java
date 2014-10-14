@@ -8,7 +8,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.nutch.parse.xsl.xml.rule.Rules;
 import org.apache.nutch.parse.xsl.xml.rule.TRule;
 import org.slf4j.Logger;
@@ -50,14 +49,12 @@ public class RulesManager {
 	 * Instanciates an object using the apache nutch configuration (that
 	 * contains the property defining the rules).
 	 * 
-	 * @param configuration
+	 * @param rulesFile the rules file to use
 	 * @throws Exception
 	 */
-	private RulesManager(Configuration configuration) throws Exception {
+	private RulesManager(String rulesFile) throws Exception {
 		super();
 
-		// Getting rules file
-		String rulesFile = configuration.get(CONF_XML_RULES);
 		if (rulesFile == null)
 			throw new Exception("The rules file shall be set in your configuration file");
 
@@ -71,14 +68,13 @@ public class RulesManager {
 	}
 
 	/**
-	 * @param configuration
-	 *            the configuration used to create the singleton
+	 * @param rulesFile the rules file to use
 	 * @return the singleton instance
 	 * @throws Exception
 	 */
-	public static RulesManager getInstance(Configuration configuration) throws Exception {
+	public static RulesManager getInstance(String rulesFile) throws Exception {
 		if (instance == null)
-			instance = new RulesManager(configuration);
+			instance = new RulesManager(rulesFile);
 		return instance;
 
 	}

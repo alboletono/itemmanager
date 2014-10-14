@@ -88,6 +88,15 @@ public class XslParseFilter implements HtmlParseFilter {
 
 	private Configuration conf;
 
+	// The html parser to use (default is neko. Otherwise Tag Soup)
+	private String parser;
+	// The xsl parser to use (default from jvm or Saxon)
+	private boolean ifSaxonParser;
+	// Rules file to use
+	private String rulesFile;
+	// Debug file to use
+	private String debugFile;
+
 	/**
 	 * Default constructor forbidden.
 	 */
@@ -119,7 +128,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			// For neko, all tags are UPPER CASE.
 			// For tagsoup, it is in lower case.
 			// This is decided by the html parser plugin
-			if (this.conf.get(CONF_HTML_PARSER, PARSER.NEKO.toString()).equals(PARSER.NEKO.toString())) {
+			if (this.parser.equals(PARSER.NEKO.toString())) {
 				xpath = xpath.toUpperCase();
 			} else {
 				// TODO Tag soup is not working. To be investigated.
@@ -131,12 +140,12 @@ public class XslParseFilter implements HtmlParseFilter {
 			Parse parse = parseResult.get(content.getUrl());
 
 			// Do we use saxon for xslt 2.0 compliancy?
-			if (this.getConf().getBoolean(CONF_XSLT_USE_SAXON, false)) {
+			if (this.ifSaxonParser) {
 				System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 			}
 
 			// Rules manager that contains url corresponding transformer.
-			RulesManager manager = RulesManager.getInstance(this.conf);
+			RulesManager manager = RulesManager.getInstance(this.rulesFile);
 
 			DOMResult result = new DOMResult();
 			// At this state, thanks to the HtmlParser that is using
@@ -145,10 +154,8 @@ public class XslParseFilter implements HtmlParseFilter {
 			manager.getTransformer(content.getUrl()).transform(new DOMSource(doc), result);
 
 			// Storing the xml output for debug purpose
-			if (LOG.isDebugEnabled()) {
-				String debugFile = this.conf.get(CONF_XSLT_OUTPUT_DEBUG_FILE);
-				if (debugFile != null)
-					XslParseFilter.saveDOMOutput(result.getNode(), new File(debugFile));
+			if (LOG.isDebugEnabled() && this.debugFile != null) {
+				XslParseFilter.saveDOMOutput(result.getNode(), new File(debugFile));
 			}
 
 			XslParseFilter.updateMetadata(result.getNode(), parse);
@@ -232,6 +239,15 @@ public class XslParseFilter implements HtmlParseFilter {
 	@Override
 	public void setConf(Configuration conf) {
 		this.conf = conf;
+
+		// Setting the parser from conf
+		this.parser = this.conf.get(CONF_HTML_PARSER, PARSER.NEKO.toString());
+		// Setting the parser to use from conf
+		this.ifSaxonParser = this.conf.getBoolean(CONF_XSLT_USE_SAXON, false);
+		// Getting rules file
+		this.rulesFile = this.conf.get(RulesManager.CONF_XML_RULES);
+		// Debug file to use
+		this.debugFile = this.conf.get(CONF_XSLT_OUTPUT_DEBUG_FILE);
 	}
 
 	/**
