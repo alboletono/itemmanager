@@ -145,7 +145,7 @@ public class XslParseFilter implements HtmlParseFilter {
 			}
 
 			// Rules manager that contains url corresponding transformer.
-			RulesManager manager = RulesManager.getInstance(this.rulesFile);
+			RulesManager manager = new RulesManager(this.rulesFile);
 
 			DOMResult result = new DOMResult();
 			// At this state, thanks to the HtmlParser that is using

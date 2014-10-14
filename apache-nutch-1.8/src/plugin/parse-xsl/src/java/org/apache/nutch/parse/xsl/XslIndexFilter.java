@@ -74,7 +74,7 @@ public class XslIndexFilter implements IndexingFilter {
 		try {
 
 			// Rules manager that contains url corresponding transformer.
-			RulesManager manager = RulesManager.getInstance(this.rulesFile);
+			RulesManager manager = new RulesManager(this.rulesFile);
 
 			// Getting transformer file path associated to rule if exists
 			String xsltFilePath = null;

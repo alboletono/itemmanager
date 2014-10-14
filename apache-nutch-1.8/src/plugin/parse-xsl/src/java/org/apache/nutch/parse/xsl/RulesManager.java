@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
  * This class allows to manage a set of Transformer singletons. It allows to
  * avoid having several instances of Transformers with XSL to load each time for
  * performance matter. The decision to use a given Transformer is determined by
- * a set of rules (@see Rules)
- * 
+ * a set
+ * DO NOT make this class a singleton otherwise it will produce thread safety problems related to Xsl transformers not thread safe.
  * @see Transformer
  * @author avigier
  * 
@@ -36,8 +36,6 @@ public class RulesManager {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RulesManager.class);
 
-	private static RulesManager instance = null;
-
 	/**
 	 * Default constructor forbidden.
 	 */
@@ -52,7 +50,7 @@ public class RulesManager {
 	 * @param rulesFile the rules file to use
 	 * @throws Exception
 	 */
-	private RulesManager(String rulesFile) throws Exception {
+	public RulesManager(String rulesFile) throws Exception {
 		super();
 
 		if (rulesFile == null)
@@ -64,18 +62,6 @@ public class RulesManager {
 		} catch (Exception e) {
 			throw new Exception("Cannot load the rules file, please check it.", e);
 		}
-
-	}
-
-	/**
-	 * @param rulesFile the rules file to use
-	 * @return the singleton instance
-	 * @throws Exception
-	 */
-	public static RulesManager getInstance(String rulesFile) throws Exception {
-		if (instance == null)
-			instance = new RulesManager(rulesFile);
-		return instance;
 
 	}
 
