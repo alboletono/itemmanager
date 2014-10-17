@@ -1,0 +1,8 @@
+<rules>
+	<!-- When this url matches, the associated transformer is used.
+	If not matching any other page will be ignored (see conf/rules.xsd) -->
+	<rule matches="http://www.sample1.com/book\?\d+" filterUrlsWithNoRule="true">
+		<transformer file="src/plugin/parse-xsl/src/tests/files/sample1/transformer_book.xsl" />
+
+	</rule>
+</rules>

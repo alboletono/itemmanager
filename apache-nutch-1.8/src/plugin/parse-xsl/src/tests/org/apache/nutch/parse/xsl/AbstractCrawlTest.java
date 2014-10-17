@@ -10,6 +10,7 @@ import junit.framework.TestCase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.html.dom.HTMLDocumentImpl;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.metadata.Metadata;
 import org.apache.nutch.parse.HtmlParseFilter;
 import org.apache.nutch.parse.ParseData;
@@ -31,13 +32,16 @@ import org.xml.sax.SAXException;
  * Nutch like setting a configuration, providing a DocumentFragment, etc... All
  * your tests related to parse-xsl shall extend this test.
  * 
- * @author avigier
  * 
  */
 public abstract class AbstractCrawlTest extends TestCase {
 
 	/** The logger used for current and derived classes */
 	protected static final Logger LOG = LoggerFactory.getLogger(AbstractCrawlTest.class);
+	
+	static {
+		PropertyConfigurator.configure("conf/log4j.properties");
+	}
 
 	/**
 	 * the configuration to use with current crawler Never access this property. @see

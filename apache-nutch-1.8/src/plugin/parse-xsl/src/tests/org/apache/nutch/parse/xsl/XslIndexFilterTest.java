@@ -17,7 +17,7 @@ public class XslIndexFilterTest extends TestCase {
 	public void testFields() {
 		XslIndexFilter filter = new XslIndexFilter();
 		try {
-			List<String> list = filter.extractFields("src/plugin/parse-xsl/src/tests/files/copainsdavant/transformer_people.xsl");
+			List<String> list = filter.extractFields("src/plugin/parse-xsl/src/tests/files/sample1/transformer_book.xsl");
 			assertNotNull(list);
 			assertEquals(6, list.size());
 		} catch (Exception e) {

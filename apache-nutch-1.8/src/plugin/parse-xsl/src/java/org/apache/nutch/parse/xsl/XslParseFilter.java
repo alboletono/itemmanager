@@ -139,7 +139,7 @@ public class XslParseFilter implements HtmlParseFilter {
 
 			Parse parse = parseResult.get(content.getUrl());
 
-			// Do we use saxon for xslt 2.0 compliancy?
+			// TODO: use saxon for xslt 2.0 compliancy
 			if (this.ifSaxonParser) {
 				System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 			}

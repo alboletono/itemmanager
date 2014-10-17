@@ -5,4 +5,6 @@
 - Enhance rules.xml
   - enable/disable snippet
   - set a mandatory meta. If not found, document is ignored (not enough "interesting", no added value)
+  - give possibility to filter from a metadata value instead of a url (proposed by Julien Nioche).
+  
   

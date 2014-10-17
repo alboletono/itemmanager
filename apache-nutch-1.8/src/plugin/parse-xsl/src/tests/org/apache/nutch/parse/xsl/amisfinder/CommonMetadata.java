@@ -1,4 +1,4 @@
-package org.apache.nutch.parse.xsl;
+package org.apache.nutch.parse.xsl.amisfinder;
 
 /**
  * Metadata that are fetched.

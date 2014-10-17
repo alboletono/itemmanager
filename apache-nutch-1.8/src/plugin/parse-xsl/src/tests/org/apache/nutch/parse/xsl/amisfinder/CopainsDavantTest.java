@@ -1,10 +1,10 @@
-package org.apache.nutch.parse.xsl;
+package org.apache.nutch.parse.xsl.amisfinder;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.metadata.Metadata;
+import org.apache.nutch.parse.xsl.RulesManager;
 import org.apache.nutch.parse.xsl.XslParseFilter.PARSER;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +18,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class CopainsDavantTest extends AbstractAmisFinder {
 
-	static {
-		PropertyConfigurator.configure("conf/log4j.properties");
-	}
+
 
 	/**
 	 * 

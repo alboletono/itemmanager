@@ -1,8 +1,10 @@
-package org.apache.nutch.parse.xsl;
+package org.apache.nutch.parse.xsl.amisfinder;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.nutch.metadata.Metadata;
 import org.apache.nutch.parse.ParseResult;
+import org.apache.nutch.parse.xsl.AbstractCrawlTest;
+import org.apache.nutch.parse.xsl.XslParseFilter;
 import org.apache.nutch.parse.xsl.XslParseFilter.PARSER;
 
 /**
@@ -14,7 +16,6 @@ import org.apache.nutch.parse.xsl.XslParseFilter.PARSER;
  * <li>wanted people that are searched by other people</li>
  * </ul>
  * 
- * @author albo
  * 
  */
 public abstract class AbstractAmisFinder extends AbstractCrawlTest {

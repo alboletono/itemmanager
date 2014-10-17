@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
  * a set
  * DO NOT make this class a singleton otherwise it will produce thread safety problems related to Xsl transformers not thread safe.
  * @see Transformer
- * @author avigier
  * 
  */
 public class RulesManager {
